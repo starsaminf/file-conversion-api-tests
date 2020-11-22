@@ -1,0 +1,61 @@
+plugins {
+    id 'java'
+}
+
+apply plugin: 'idea'
+apply plugin: 'checkstyle'
+apply plugin: 'pmd'
+apply plugin: 'jacoco'
+
+group 'org.fundacionjala'
+version '1.0'
+sourceCompatibility = 1.11
+
+repositories {
+    mavenCentral()
+}
+
+dependencies {
+    implementation group: 'org.slf4j', name: 'slf4j-simple', version: '1.7.30'
+    implementation group: 'io.rest-assured', name: 'rest-assured', version: '4.3.2'
+    testImplementation group: 'io.cucumber', name: 'cucumber-java', version: '6.9.0'
+    testImplementation group: 'io.cucumber', name: 'cucumber-testng', version: '6.9.0'
+    testImplementation group: 'io.cucumber', name: 'cucumber-picocontainer', version: '6.9.0'
+    testImplementation group: 'org.mockito', name: 'mockito-core', version: '3.6.0'
+    testImplementation group: 'org.testng', name: 'testng', version: '7.3.0'
+}
+
+checkstyle {
+    toolVersion = '8.37'
+    configFile = file("${rootProject.rootDir}/config/checkstyle/checkstyle.xml")
+}
+
+pmd {
+    toolVersion = '6.0.0'
+}
+
+tasks.withType(Pmd) {
+    ruleSets = ["java-basic", "java-braces", "java-unnecessary", "java-unusedcode", "java-strictexception"]
+    reports {
+        xml.enabled = false
+        html.enabled = true
+    }
+}
+
+jacocoTestReport {
+    reports {
+        xml.enabled = true
+        html.enabled = true
+    }
+}
+
+check.dependsOn jacocoTestReport
+
+test {
+    useTestNG()
+    exclude 'org/fundacionjala/fc/runner/**'
+    include 'org/fundacionjala/fc/unit/tests/**'
+    testLogging {
+        events 'PASSED', 'STARTED', 'FAILED', 'SKIPPED'
+    }
+}

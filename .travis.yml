@@ -1,0 +1,17 @@
+sudo: required
+
+language: java
+jdk:
+  - openjdk11
+
+addons:
+  sonarcloud:
+    organization: "at-12"
+    token: ${SONAR_TOKEN}
+
+script:
+  - ./gradlew check
+  - sonar-scanner
+
+after_success:
+  - bash <(curl -s https://codecov.io/bash)
