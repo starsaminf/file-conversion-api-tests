@@ -20,7 +20,6 @@ public final class JsonSchemaValidator {
      */
     public static void validate(final Response response, final String schemaFilePath) {
         File schemaFile = new File(schemaFilePath);
-        System.out.println(response.getBody());
         response.then().assertThat().body(matchesJsonSchema(schemaFile));
     }
 }
