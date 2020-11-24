@@ -20,7 +20,7 @@ Feature: Audio Controller
       | duration     | 10                               |
     Then I validate the response has the "200" state code
     And I validate that the response body should match with "audio/audioSchema.json" JSON schema
-    And I validate that the response container the following values
+    And I validate that the response contain the following values
       | status  | 200                                                           |
       | message | "storage/convertedFiles/e1b3fab24c8af81c1aa13dbbb4e44ff0.zip" |
 
@@ -41,15 +41,15 @@ Feature: Audio Controller
       | duration     | 10                               |
     Then I validate the response has the "400" state code
     And I validate that the response body should match with "audio/audioErrorSchema.json" JSON schema
-    And I validate that the response container the following values
+    And I validate that the response contain the following values
       | status  | 400                    |
       | error   | "Invalid audio format" |
 
   Scenario: I want validate error message when I send empty form-data
     Given I send a POST request to "/convertAudio"
-    When I sent the empty form data
+    When I set empty form data
     Then I validate the response has the "400" state code
     And I validate that the response body should match with "audio/audioErrorSchema.json" JSON schema
-    And I validate that the response container the following values
+    And I validate that the response contain the following values
       | status | 400                   |
       | error  | "Invalid audio codec" |
