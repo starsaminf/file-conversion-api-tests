@@ -28,7 +28,7 @@ dependencies {
     testImplementation group: 'io.cucumber', name: 'cucumber-picocontainer', version: '6.9.0'
     testImplementation group: 'org.mockito', name: 'mockito-core', version: '3.6.0'
     testImplementation group: 'org.testng', name: 'testng', version: '7.3.0'
-    testImplementation 'io.qameta.allure:allure-cucumber6-jvm:2.13.6'
+    testImplementation group: 'io.qameta.allure', name: 'allure-cucumber6-jvm', version: '2.13.6'
 }
 
 checkstyle {
@@ -65,6 +65,7 @@ test {
         events 'PASSED', 'STARTED', 'FAILED', 'SKIPPED'
     }
 }
+
 configurations {
     cucumberRuntime {
         extendsFrom testImplementation
