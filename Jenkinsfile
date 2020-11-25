@@ -1,9 +1,14 @@
 pipeline {
     agent any
+    triggers {
+        pollSCM('H/5 * * * *')
+    }
 
     stages {
         stage('Checkout') {
             steps {
+                echo 'Cleaning...'
+                sh 'rm -r file-conversion-api-tests'
                 echo 'Cloning...'
                 sh 'git clone https://github.com/AT-12/file-conversion-api-tests.git'
             }
@@ -37,7 +42,18 @@ pipeline {
                 }
             }
         }
-        stage('Re-Run Tests') {
+        stage('Run BDD Tests') {
+            steps {
+                echo 'Running BDD Tests...'
+                sh './gradlew executeBDDTests'
+            }
+        post {
+                always {
+                    archiveArtifacts artifacts: '/build/reports/allure-report/*'
+                }
+            }
+        }
+        stage('Re-Run BDD Tests') {
             steps {
                 echo 'Empty for now! Coming soon.'
             }
