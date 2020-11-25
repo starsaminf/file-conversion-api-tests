@@ -16,6 +16,8 @@ pipeline {
         stage('Build') {
             steps {
                 echo 'Building...'
+                sh 'export JAVA_HOME=/usr/lib/jvm/java-11-openjdk'
+                sh 'export PATH=$JAVA_HOME/bin:$PATH'
                 sh './gradlew clean build'
             }
             post {
