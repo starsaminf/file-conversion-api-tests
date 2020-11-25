@@ -1,7 +1,7 @@
 version: '3.7'
 services:
  jenkins_server:
-  image: http://registry.jala.info/devops/jenkinsci/blueocean:1.23.2
+  image: registry.jala.info/devops/jenkinsci/blueocean:1.23.2
   container_name: jenkins_server
   restart: always
   ports:
@@ -15,7 +15,7 @@ volumes:
  jenkins_data:
   name: jenkins_data
 networks:
- ci_services:
+ ci_service:
   name: ci_service
   driver: bridge
   ipam:
