@@ -4,9 +4,6 @@ pipeline {
     stages {
         stage('Checkout') {
             steps {
-                echo 'Defining credentials to clone...'
-                sh 'git config --global credential.username ${GIT_USERNAME}'
-                sh 'git config --global credential.helper "!echo password=${GIT_PASSWORD}; echo"'
                 echo 'Cloning...'
                 sh 'git clone https://github.com/AT-12/file-conversion-api-tests.git'
             }
