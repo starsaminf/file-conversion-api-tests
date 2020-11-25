@@ -5,7 +5,8 @@ Feature: Audio Controller
 
   Background: Sets authentication
     Given I set valid authentication headers
-
+  
+  @functional
   Scenario: Verify that "/convertAudio" endpoint can perform "POST" request
     When I send a POST request to "/convertAudio" with the following form data
       | file         | @"template/audio/demo.mp3"       |
@@ -24,6 +25,7 @@ Feature: Audio Controller
     And I validate that the response contain the following values
       | status  | 200                                                           |
 
+  @negative
   Scenario: Verify that "/convertAudio" endpoint return error when I send Invalid information
     When I send a POST request to "/convertAudio" with the following form data
     When I set the following form data
@@ -45,6 +47,7 @@ Feature: Audio Controller
       | status  | 400                    |
       | error   | "Invalid audio format" |
 
+  @negative
   Scenario: Verify that "/convertAudio" endpoint return error when I send Invalid information
     When I send a POST request to "/convertAudio" with the empty form data
     Then I validate the response has the "400" state code
