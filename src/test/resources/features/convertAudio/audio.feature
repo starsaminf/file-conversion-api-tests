@@ -9,7 +9,7 @@ Feature: Audio Converter
   @functional
   Scenario: Verify that is audio file is converted
     When I send a POST request to "/convertAudio" with the following form data
-      | file         | "template/audio/demo.mp3"        |
+      | file         | @"template/audio/demo.mp3"       |
       | md5          | e1b3fab24c8af81c1aa13dbbb4e44ff0 |
       | exportFormat | .mp3                             |
       | name         | demoConvertFile                  |
@@ -29,8 +29,7 @@ Feature: Audio Converter
   Scenario: Verify that is endpoint return error when I send invalid information in the exportFormat
     When I send a POST request to "/convertAudio" with the following form data
     When I set the following form data
-      | name         | value                            |
-      | file         | "template/audio/demo.mp3"        |
+      | file         | @"template/audio/demo.mp3"       |
       | md5          | e1b3fab24c8af81c1aa13dbbb4e44ff0 |
       | exportFormat | .mp5                             |
       | name         | demoConvertFile                  |
