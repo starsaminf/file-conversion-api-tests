@@ -6,7 +6,7 @@ pipeline {
 
     environment {
         JAVA_HOME = '/usr/lib/jvm/java-11-openjdk'
-        PATH      = '$JAVA_HOME/bin:$PATH'
+        PATH      = '/usr/lib/jvm/java-11-openjdk/bin:/opt/java/openjdk/bin:/usr/local/sbin:/usr/local/bin:/usr/sbin:/usr/bin:/sbin:/bin'
     }
 
     stages {
