@@ -2,7 +2,7 @@ package org.fundacionjala.fc.config;
 
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
-import org.mozilla.javascript.tools.shell.Environment;
+
 import java.io.FileNotFoundException;
 import java.io.FileReader;
 import java.io.IOException;
@@ -11,15 +11,15 @@ import java.util.Properties;
 /**
  * PropertiesReader class.
  */
-public final class PropertiesReader {
+public final class Environment {
 
     private static final String PATH = "gradle.properties";
-    private static final Logger LOGGER = LogManager.getLogger(Environment.class);
-    private static PropertiesReader singleInstance;
+    private static final Logger LOGGER = LogManager.getLogger(org.mozilla.javascript.tools.shell.Environment.class);
+    private static Environment singleInstance;
     private FileReader reader;
     private Properties property;
 
-    private PropertiesReader() {
+    private Environment() {
         try {
             reader = new FileReader(PATH);
             property = new Properties();
@@ -37,9 +37,9 @@ public final class PropertiesReader {
      * get instance or create a new one.
      * @return PropertiesReader instance.
      */
-    public static PropertiesReader getInstance() {
+    public static Environment getInstance() {
         if (singleInstance == null) {
-            singleInstance = new PropertiesReader();
+            singleInstance = new Environment();
         }
         return singleInstance;
     }
@@ -49,7 +49,7 @@ public final class PropertiesReader {
      * @return base url.
      */
     public String getBaseUrl() {
-        return property.getProperty("baseUrl");
+        return getEnvProperty("baseUrl");
     }
 
     /**
@@ -57,7 +57,7 @@ public final class PropertiesReader {
      * @return User value.
      */
     public String getUsername() {
-        return property.getProperty("username");
+        return getEnvProperty("username");
     }
 
     /**
@@ -65,7 +65,7 @@ public final class PropertiesReader {
      * @return Password value.
      */
     public String getPassword() {
-        return property.getProperty("password");
+        return getEnvProperty("password");
     }
 
     /**
@@ -73,7 +73,7 @@ public final class PropertiesReader {
      * @return AudioTemplatesPath value.
      */
     public String getAudioTemplatesPath() {
-        return property.getProperty("audioTemplatesPath");
+        return getEnvProperty("audioTemplatesPath");
     }
 
     /**
@@ -81,7 +81,7 @@ public final class PropertiesReader {
      * @return videoTemplatesPath value.
      */
     public String getVideoTemplatesPath() {
-        return property.getProperty("videoTemplatesPath");
+        return getEnvProperty("videoTemplatesPath");
     }
 
     /**
@@ -89,6 +89,14 @@ public final class PropertiesReader {
      * @return imageTemplatesPath value.
      */
     public String getImageTemplatesPath() {
-        return property.getProperty("imageTemplatesPath");
+        return getEnvProperty("imageTemplatesPath");
+    }
+
+    private String getEnvProperty(final String env) {
+        String localProperty = System.getProperty(env);
+        if (localProperty == null) {
+            return this.property.getProperty(env);
+        }
+        return localProperty;
     }
 }

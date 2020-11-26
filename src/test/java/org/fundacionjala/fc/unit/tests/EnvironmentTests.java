@@ -1,6 +1,6 @@
 package org.fundacionjala.fc.unit.tests;
 
-import org.fundacionjala.fc.config.PropertiesReader;
+import org.fundacionjala.fc.config.Environment;
 import org.testng.Assert;
 import org.testng.annotations.Test;
 import java.io.IOException;
@@ -8,14 +8,14 @@ import java.io.IOException;
 /**
  * Defines unit tests for PropertiesReader Class.
  */
-public class PropertiesReaderTests {
+public class EnvironmentTests {
 
     /**
      * Test get User value from gradle.properties.
      */
     @Test
     public void getUserTest() throws IOException {
-        PropertiesReader reader = PropertiesReader.getInstance();
+        Environment reader = Environment.getInstance();
         String actual = reader.getUsername();
         String expected = "";
         Assert.assertEquals(actual, expected);
@@ -26,7 +26,7 @@ public class PropertiesReaderTests {
      */
     @Test
     public void getBaseUrlTest() throws IOException {
-        PropertiesReader reader = PropertiesReader.getInstance();
+        Environment reader = Environment.getInstance();
         String actual = reader.getBaseUrl();
         String expected = "";
         Assert.assertEquals(actual, expected);
@@ -37,7 +37,7 @@ public class PropertiesReaderTests {
      */
     @Test
     public void getPasswordTest() throws IOException {
-        PropertiesReader reader = PropertiesReader.getInstance();
+        Environment reader = Environment.getInstance();
         String actual = reader.getPassword();
         String expected = "";
         Assert.assertEquals(actual, expected);
@@ -48,7 +48,7 @@ public class PropertiesReaderTests {
      */
     @Test
     public void getAudioTemplatesPathTest() throws IOException {
-        PropertiesReader reader = PropertiesReader.getInstance();
+        Environment reader = Environment.getInstance();
         String actual = reader.getAudioTemplatesPath();
         String expected = "";
         Assert.assertEquals(actual, expected);
@@ -59,7 +59,7 @@ public class PropertiesReaderTests {
      */
     @Test
     public void getVideoTemplatesPathTest() throws IOException {
-        PropertiesReader reader = PropertiesReader.getInstance();
+        Environment reader = Environment.getInstance();
         String actual = reader.getVideoTemplatesPath();
         String expected = "";
         Assert.assertEquals(actual, expected);
@@ -70,7 +70,7 @@ public class PropertiesReaderTests {
      */
     @Test
     public void getImageTemplatesPathTest() throws IOException {
-        PropertiesReader reader = PropertiesReader.getInstance();
+        Environment reader = Environment.getInstance();
         String actual = reader.getImageTemplatesPath();
         String expected = "";
         Assert.assertEquals(actual, expected);
