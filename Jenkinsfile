@@ -58,7 +58,8 @@ pipeline {
             }
         post {
                 always {
-                    archiveArtifacts artifacts: '/build/reports/allure-report/*'
+                    archiveArtifacts artifacts: 'build/reports/allure-report/*'
+                    archiveArtifacts artifacts: 'build/reports/allure-report/**/*'
                 }
             }
         }
