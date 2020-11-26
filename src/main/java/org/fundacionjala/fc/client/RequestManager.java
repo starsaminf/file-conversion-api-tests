@@ -10,7 +10,7 @@ import static io.restassured.RestAssured.given;
 
 public final class RequestManager {
 
-    private static final RequestSpecification REQUEST_SPEC = new Authentication().getRequestSpecification();
+    private static RequestSpecification reqSpec;
 
     /**
      * Constructor for the Request Manager.
@@ -26,7 +26,7 @@ public final class RequestManager {
      */
     public static Response get(final String endpoint) {
         Response response = given()
-                            .spec(REQUEST_SPEC)
+                            .spec(reqSpec)
                             .when()
                             .get(endpoint);
         return response;
@@ -40,7 +40,7 @@ public final class RequestManager {
      * @return a response object.
      */
     public static Response get(final String endpoint, final Map<String, String> params) {
-        RequestSpecification req = REQUEST_SPEC;
+        RequestSpecification req = reqSpec;
         req.contentType(ContentType.MULTIPART_FORM_DATA.toString());
         for (Map.Entry<String, String> entry : params.entrySet()) {
             String key = entry.getKey();
@@ -62,7 +62,7 @@ public final class RequestManager {
      * @return a response object.
      */
     public static Response post(final String endpoint, final Map<String, String> params) {
-        RequestSpecification req = REQUEST_SPEC;
+        RequestSpecification req = reqSpec;
         req.contentType(ContentType.MULTIPART_FORM_DATA.toString());
 
         for (Map.Entry<String, String> entry : params.entrySet()) {
@@ -104,7 +104,7 @@ public final class RequestManager {
      */
     public static Response delete(final String endpoint) {
         Response response = given()
-                .spec(REQUEST_SPEC)
+                .spec(reqSpec)
                 .when()
                 .delete(endpoint);
         return response;
@@ -121,5 +121,23 @@ public final class RequestManager {
         int endIndex = path.indexOf('"', beginIndex);
 
         return path.substring(beginIndex, endIndex);
+    }
+
+    /**
+     * Extract a substring.
+     *
+     * @return a String with the path of file.
+     */
+    private static void setLoggedReqSpec() {
+        reqSpec = AuthenticationUtils.getLoggedReqSpec();
+    }
+
+    /**
+     * Extract a substring.
+     *
+     * @return a String with the path of file.
+     */
+    private static void setNotLoggedReqSpec() {
+        reqSpec = AuthenticationUtils.getNotLoggedReqSpec();
     }
 }
