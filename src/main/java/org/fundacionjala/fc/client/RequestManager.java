@@ -114,7 +114,7 @@ public final class RequestManager {
      * Extract a substring.
      *
      * @param path
-     * @return a String.
+     * @return a String with the path of file.
      */
     private static String getFilePath(final String path) {
         int beginIndex = path.indexOf('"') + 1;
