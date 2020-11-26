@@ -81,8 +81,8 @@ Feature: Audio Converter
     Then I validate the response has the "400" status code
     And I validate that the response body should match with "common/errorResponse.json" JSON schema
     And I validate that the response contain the following values
-      | status | 400                    |
-      | error  | "Invalid audio format" |
+      | status | 400                  |
+      | error  | Invalid audio format |
 
   @negative
   Scenario: Verify that is not possible convert audio without configurations parameters
@@ -90,8 +90,8 @@ Feature: Audio Converter
     Then I validate the response has the "400" status code
     And I validate that the response body should match with "common/errorResponse.json" JSON schema
     And I validate that the response contain the following values
-      | status | 400                   |
-      | error  | "Invalid audio codec" |
+      | status | 400                 |
+      | error  | Invalid audio codec |
 
   @negative
   Scenario: Verify that is not possible convert audio when an invalid md5 is used
@@ -110,5 +110,5 @@ Feature: Audio Converter
     Then I validate the response has the "400" status code
     And I validate that the response body should match with "common/errorResponse.json" JSON schema
     And I validate that the response should contain the following values
-      | status | 400                |
-      | error  | "Invalid md5 code" |
+      | status | 400              |
+      | error  | Invalid md5 code |
