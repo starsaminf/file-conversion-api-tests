@@ -121,7 +121,7 @@ Feature: Image converter
     And I validate that the response body should match with "common/errorResponse.json" JSON schema
     And I validate that the response container the following values
       | status  | 400                    |
-      | error   | "Invalid image format" |
+      | error   | Invalid image format   |
 
   @negative
   Scenario: Verify that is not possible to perform image conversion with an invalid input file
@@ -141,7 +141,7 @@ Feature: Image converter
     And I validate that the response body should match with "common/errorResponse.json" JSON schema
     And I validate that the response container the following values
       | status  | 400                         |
-      | error   | "The file isn't type image" |
+      | error   | The file isn't type image   |
 
   @negative
   Scenario: Verify that is not possible to perform image conversion with an invalid md5 parameter
@@ -161,7 +161,7 @@ Feature: Image converter
     And I validate that the response body should match with "common/errorResponse.json" JSON schema
     And I validate that the response container the following values
       | status  | 400                 |
-      | error   | "Failed in the md5" |
+      | error   | Failed in the md5   |
 
   @negative
   Scenario: Verify that is not possible to perform image conversion without conversion parameters
@@ -175,7 +175,7 @@ Feature: Image converter
     And I validate that the response body should match with "common/errorResponse.json" JSON schema
     And I validate that the response container the following values
       | status  | 400                     |
-      | error   | "Please, fill the form" |
+      | error   | Please, fill the form   |
 
   @negative
   Scenario: Verify that if one of the mandatory field is empty, it displays an error message
@@ -188,8 +188,8 @@ Feature: Image converter
     Then I validate the response has the "400" status code
     And I validate that the response body should match with "common/errorResponse.json" JSON schema
     And I validate that the response container the following values
-      | status  | 400                     |
-      | error   | "Invalid height"        |
+      | status  | 400                  |
+      | error   | Invalid height       |
 
   @negative
   Scenario: Verify that if several mandatory fields are empty, it displays corresponding messages
@@ -202,8 +202,8 @@ Feature: Image converter
     Then I validate the response has the "400" status code
     And I validate that the response body should match with "common/errorResponse.json" JSON schema
     And I validate that the response container the following values
-      | status  | 400                         |
-      | error   | "Invalid height and width"  |
+      | status  | 400                       |
+      | error   | Invalid height and width  |
 
   @negative
   Scenario: Verify that is not possible to perform image conversion with an invalid position parameter
@@ -222,8 +222,8 @@ Feature: Image converter
     Then I validate the response has the "200" status code
     And I validate that the response body should match with "common/errorResponse.json" JSON schema
     And I validate that the response container the following values
-      | status  | 400                                |
-      | error   | "The position field is type (x,y)" |
+      | status  | 400                              |
+      | error   | The position field is type (x,y) |
 
   @functional
   Scenario: Verify that is not possible to perform image conversion with empty image dimensions
@@ -258,5 +258,5 @@ Feature: Image converter
     Then I validate the response has the "400" status code
     And I validate that the response body should match with "common/errorResponse.json" JSON schema
     And I validate that the response container the following values
-      | status  | 400                |
-      | error   | "Invalid height"   |
+      | status  | 400              |
+      | error   | Invalid height   |
