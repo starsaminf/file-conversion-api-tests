@@ -25,7 +25,6 @@ public final class RequestManager {
      * @return a response object.
      */
     public static Response get(final String endpoint) {
-        System.out.println(REQUEST_SPEC);
         Response response = given()
                             .spec(REQUEST_SPEC)
                             .when()
@@ -81,11 +80,11 @@ public final class RequestManager {
     /**
      * Makes a PUT request.
      *
-     * @param url
+     * @param endpoint
      * @param params
      * @return a response object.
      */
-    public static Response put(final String url, final Map<String, String> params) {
+    public static Response put(final String endpoint, final Map<String, String> params) {
         RequestSpecification req =  RestAssured.given();
         req.contentType(ContentType.MULTIPART_FORM_DATA.toString());
 
@@ -94,7 +93,7 @@ public final class RequestManager {
             String value = entry.getValue();
             req.multiPart(key, value);
         }
-        return req.put(url);
+        return req.put(endpoint);
     }
 
     /**
