@@ -12,10 +12,14 @@ pipeline {
     stages {
         stage('Checkout') {
             steps {
-                echo 'Cleaning...'
-                sh 'rm -r file-conversion-api-tests'
                 echo 'Cloning...'
                 sh 'git clone https://github.com/AT-12/file-conversion-api-tests.git'
+            }
+            post {
+                always {
+                    echo 'Cleaning...'
+                    sh 'rm -r file-conversion-api-tests'
+                }
             }
         }
         stage('Build') {
