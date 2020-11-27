@@ -1,9 +1,10 @@
 package org.fundacionjala.fc.client;
 
-import io.restassured.RestAssured;
 import io.restassured.response.Response;
 import io.restassured.specification.RequestSpecification;
 import org.apache.http.entity.ContentType;
+import org.fundacionjala.fc.config.Environment;
+
 import java.io.File;
 import java.util.Map;
 import static io.restassured.RestAssured.given;
@@ -26,9 +27,9 @@ public final class RequestManager {
      */
     public static Response get(final String endpoint) {
         Response response = given()
-                            .spec(reqSpec)
-                            .when()
-                            .get(endpoint);
+                .spec(reqSpec)
+                .when()
+                .get(endpoint);
         return response;
     }
 
@@ -36,64 +37,33 @@ public final class RequestManager {
      * Makes a GET request.
      *
      * @param endpoint
-     * @param params
+     * @param formData
      * @return a response object.
      */
-    public static Response get(final String endpoint, final Map<String, String> params) {
-        RequestSpecification req = reqSpec;
-        req.contentType(ContentType.MULTIPART_FORM_DATA.toString());
-        for (Map.Entry<String, String> entry : params.entrySet()) {
-            String key = entry.getKey();
-            String value = entry.getValue();
-            if (value.startsWith("@")) {
-                req.multiPart(key, new File(getFilePath(value)));
-            } else {
-                req.multiPart(key, value);
-            }
-        }
-        return req.post(endpoint);
+    public static Response get(final String endpoint, final Map<String, String> formData) {
+        return getReqSpecWithFormData(formData).post(endpoint);
     }
 
     /**
      * Makes POST request.
      *
      * @param endpoint
-     * @param params
+     * @param formData
      * @return a response object.
      */
-    public static Response post(final String endpoint, final Map<String, String> params) {
-        RequestSpecification req = reqSpec;
-        req.contentType(ContentType.MULTIPART_FORM_DATA.toString());
-
-        for (Map.Entry<String, String> entry : params.entrySet()) {
-            String key = entry.getKey();
-            String value = entry.getValue();
-            if (value.startsWith("@")) {
-                req.multiPart(key, new File(getFilePath(value)));
-            } else {
-                req.multiPart(key, value);
-            }
-        }
-        return req.post(endpoint);
+    public static Response post(final String endpoint, final Map<String, String> formData) {
+        return getReqSpecWithFormData(formData).post(endpoint);
     }
 
     /**
      * Makes a PUT request.
      *
      * @param endpoint
-     * @param params
+     * @param formData
      * @return a response object.
      */
-    public static Response put(final String endpoint, final Map<String, String> params) {
-        RequestSpecification req =  RestAssured.given();
-        req.contentType(ContentType.MULTIPART_FORM_DATA.toString());
-
-        for (Map.Entry<String, String> entry : params.entrySet()) {
-            String key = entry.getKey();
-            String value = entry.getValue();
-            req.multiPart(key, value);
-        }
-        return req.put(endpoint);
+    public static Response put(final String endpoint, final Map<String, String> formData) {
+        return getReqSpecWithFormData(formData).put(endpoint);
     }
 
     /**
@@ -124,20 +94,38 @@ public final class RequestManager {
     }
 
     /**
-     * Extract a substring.
-     *
-     * @return a String with the path of file.
+     * Initialize the reqSpec variable.
      */
-    private static void setLoggedReqSpec() {
+    public static void setLoggedReqSpec() {
         reqSpec = AuthenticationUtils.getLoggedReqSpec();
     }
 
     /**
-     * Extract a substring.
-     *
-     * @return a String with the path of file.
+     * Initialize the reqSpec variable.
      */
-    private static void setNotLoggedReqSpec() {
+    public static void setNotLoggedReqSpec() {
         reqSpec = AuthenticationUtils.getNotLoggedReqSpec();
+    }
+
+    /**
+     * Adds form data to multipart.
+     *
+     * @param formData
+     * @return a RequestSpecification object.
+     */
+    private static RequestSpecification getReqSpecWithFormData(final Map<String, String> formData) {
+        RequestSpecification req =  reqSpec;
+        req.contentType(ContentType.MULTIPART_FORM_DATA.toString());
+        for (Map.Entry<String, String> entry : formData.entrySet()) {
+            String key = entry.getKey();
+            String value = entry.getValue();
+            if (value.startsWith("@")) {
+                req.multiPart(key, new File(Environment.getInstance()
+                        .getTemplatesPath() + getFilePath(value)));
+            } else {
+                req.multiPart(key, value);
+            }
+        }
+        return req;
     }
 }
