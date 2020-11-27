@@ -18,7 +18,7 @@ public final class AuthenticationUtils {
     /**
      * Constructor for Authentication.
      */
-    public AuthenticationUtils() {
+    private AuthenticationUtils() {
 
     }
 

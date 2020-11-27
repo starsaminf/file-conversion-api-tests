@@ -126,7 +126,6 @@ public final class RequestManager {
     /**
      * Extract a substring.
      *
-     * @return a String with the path of file.
      */
     private static void setLoggedReqSpec() {
         reqSpec = AuthenticationUtils.getLoggedReqSpec();
@@ -135,7 +134,6 @@ public final class RequestManager {
     /**
      * Extract a substring.
      *
-     * @return a String with the path of file.
      */
     private static void setNotLoggedReqSpec() {
         reqSpec = AuthenticationUtils.getNotLoggedReqSpec();
