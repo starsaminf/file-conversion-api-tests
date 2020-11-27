@@ -65,13 +65,20 @@ pipeline {
         }
         stage('Re-Run BDD Tests') {
             steps {
-                echo 'Empty for now! Coming soon.'
+                echo 'Re running BDD Tests...'
+                sh './gradlew reExecuteBDDTests'
             }
+            post {
+                always {
+                     archiveArtifacts artifacts: 'build/reports/allure-report/*'
+                     archiveArtifacts artifacts: 'build/reports/allure-report/**/*'
+                }
+             }
         }
         stage('Publish Report') {
-            steps {
-                echo 'Empty for now! Coming soon.'
-            }
+             steps {
+                withAllureUpload(serverId: 'localhost', results: [[path: 'build/reports/allure-report']]) {
+                         sh "./gradlew executeBDDTests"
+             }
         }
-    }
 }
